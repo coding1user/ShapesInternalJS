@@ -5,6 +5,55 @@
     <title>Cylinder Calculations</title>	
 	<link rel="stylesheet" href="css/styles.css">
 	<script>
+        "use strict";
+        window.onload = init;
+
+        function init() {
+            //event listener:
+            document.getElementById
+                ("shapeForm").onsubmit = calculate;
+        }
+
+        function calculate() {
+            //Output variables
+            var volume;
+            var area;
+            //Input variables
+            var radius = document.getElementById("radius");
+            var height = document.getElementById("height");
+
+            //Make sure of the following:
+            //1. Referenced objects exists
+            //2. Referenced object contain a valid value
+            if(radius && (radius.value > 0)
+                && height && (height.value > 0)) {
+                //Calculate:
+                volume =
+                        Math.PI *
+                        Math.pow(radius.value, 2) *
+                        height.value;
+                area =  (
+                            Math.PI *
+                            Math.pow(radius.value, 2) *
+                            2
+                        ) +
+                        (
+                            Math.PI *
+                            radius.value * 
+                            height.value * 2
+                        );
+
+            }
+
+
+        }
+
+        function formClear() {
+            document.getElementById("radius").value = "0";
+            document.getElementById("height").value = "0";
+            document.getElementById("volume").value = "";
+            document.getElementById("area").value = "";
+        }
 	</script>
 </head>
 <body>
@@ -13,7 +62,7 @@
 
 	<section>
 	<form method="get"
-          id="shapeForm">
+          id="shapeForm" onsubmit="calculate">
 		<ul id="navlist">
 			<li><a href="sphere.html"><img src="img/PurpleSphere.jpg" class="shape"></a></li>
 			<li><a href="cylinder.html"><img src="img/PurpleCylinder.gif" class="shape"></a></li>
@@ -67,8 +116,8 @@
                     <td>
                         <input  type="submit"
                                 class="sbmt"
-								id="cylSubmit"
-                                value="Calculate";
+								id="submit"
+                                value="Calculate"
 								>
                     </td>
                 </tr>
@@ -77,9 +126,9 @@
                     <td>
                         <input  type="submit"
                                 class="sbmt"
-                                id="sphereClear"
+                                id="clear"
                                 value="Clear"
-								onclick="formClear();";
+								onclick="formClear()"
 								>
                     </td>
                 </tr>
