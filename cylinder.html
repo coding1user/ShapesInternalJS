@@ -25,8 +25,12 @@
             //Make sure of the following:
             //1. Referenced objects exists
             //2. Referenced object contain a valid value
-            if(radius && (radius.value > 0)
-                && height && (height.value > 0)) {
+            if(radius && (parseFloat(radius.value) > 0)
+                && height && (parseFloat(height.value) > 0)) {
+
+                radius.value = parseFloat(radius.value);
+                height.value = parseFloat(height.value);
+
                 //Calculate:
                 volume =
                         Math.PI *
@@ -43,10 +47,35 @@
                             height.value * 2
                         );
 
-            }
+                //Format to 4 decimal places
+                volume = volume.toFixed(4);
+                area = area.toFixed(4);
 
+                //Output volume and area
+                document.getElementById("volume").value = volume;
+                document.getElementById("area").value = area;
+            }//if radius/height valid
+            else {
+                
+                //radius/height NOT valid
+                if (parseFloat(radius.value) == 0 ||
+                    isNaN(parseFloat(radius.value))) {
+                    radius.value = "Enter # > 0";
+                }
 
-        }
+                if (parseFloat(height.value) == 0 ||
+                        isNaN(parseFloat(height.value))) {
+                    height.value = "Enter # > 0";
+                }
+            }//else
+
+            //Prevent form resubmission:
+            return false;
+            //All functionality is on the
+            //client side.
+            //No need to send to server.
+
+        }//end function
 
         function formClear() {
             document.getElementById("radius").value = "0";
@@ -124,7 +153,7 @@
                 <tr>
                     <td></td>
                     <td>
-                        <input  type="submit"
+                        <input  type="button"
                                 class="sbmt"
                                 id="clear"
                                 value="Clear"
