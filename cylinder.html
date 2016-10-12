@@ -24,15 +24,25 @@
 
             //Make sure of the following:
             //1. Referenced objects exists
-            //2. Referenced object contain a valid value
-            if(radius && (parseFloat(radius.value) > 0)
-                && height && (parseFloat(height.value) > 0)) {
+            if (radius && height) {
 
-                radius.value = parseFloat(radius.value);
-                height.value = parseFloat(height.value);
+                //2. Referenced object contain a valid value
+                if (isNaN(radius.value) ||
+                        (parseFloat(radius.value) <= 0)) {
+                    radius.value = "Enter # > 0";
+                    //Exit the function
+                    return false;
+                }
+
+                if (isNaN(height.value) ||
+                        (parseFloat(height.value) <= 0)) {
+                    height.value = "Enter # > 0";
+                    //Exit the function
+                    return false;
+                }
 
                 //Calculate:
-                volume =
+                        volume =
                         Math.PI *
                         Math.pow(radius.value, 2) *
                         height.value;
@@ -55,8 +65,8 @@
                 document.getElementById("volume").value = volume;
                 document.getElementById("area").value = area;
             }//if radius/height valid
-            else {
-                
+            /* else {
+
                 //radius/height NOT valid
                 if (parseFloat(radius.value) == 0 ||
                     isNaN(parseFloat(radius.value))) {
@@ -67,7 +77,7 @@
                         isNaN(parseFloat(height.value))) {
                     height.value = "Enter # > 0";
                 }
-            }//else
+            }//else */
 
             //Prevent form resubmission:
             return false;
